@@ -2,8 +2,6 @@
 
   on:
     push:
-      paths:
-        - './package.json'
       branches: [ main ]
 
   jobs:
