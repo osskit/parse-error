@@ -1,6 +1,5 @@
 {
   "name": "@osskit/parse-error",
-  "private": true,
   "version": "0.0.2",
   "repository": {
     "url": "https://github.com/osskit/parse-error"
