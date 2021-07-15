@@ -1,4 +1,4 @@
-  name: publish client
+  name: bump
 
   on:
     push:
