@@ -6,6 +6,7 @@ export interface Response {
   data?: Record<string, any>;
   message?: string;
   url?: string;
+  [key: string]: any;
 }
 
 export type ErrorResponse = AxiosError | Record<string, any> | Response;
