@@ -1,4 +1,7 @@
-export const parseError = async (e: any) => {
+import type { AxiosError } from 'axios';
+import type { ErrorResponse } from './types';
+
+export const parseError = async (e: any): Promise<ErrorResponse> => {
   try {
     // e.text function should be fetch error
     if (e.text && typeof e.text === 'function') {
@@ -10,10 +13,12 @@ export const parseError = async (e: any) => {
         return { status: e.status, statusText: e.statusText, url: e.url };
       }
     }
+
     // Axios error has buffer properties, toJSON will create a nice object
     if (e.isAxiosError) {
-      return e.toJSON();
+      return e.toJSON() as AxiosError;
     }
+
     if (e.response) {
       return {
         status: e.response.status,
@@ -21,6 +26,7 @@ export const parseError = async (e: any) => {
         data: e.response.data,
       };
     }
+
     if (e.body) {
       try {
         return JSON.parse(e.body as string);
