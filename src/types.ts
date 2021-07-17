@@ -9,4 +9,4 @@ export interface Response {
   [key: string]: any;
 }
 
-export type ErrorResponse = AxiosError | Record<string, any> | Response;
+export type ErrorResponse = AxiosError | Response;
