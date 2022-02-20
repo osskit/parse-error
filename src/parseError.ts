@@ -18,15 +18,15 @@ export function assertError(e: any): asserts e is Error {
 export const parseError = async (e: AxiosError | Error | Response): Promise<any> => {
   if (isFetchError(e)) {
     assertFetchError(e);
-    
-return parseFetchError(e);
+
+    return parseFetchError(e);
   }
   if (isAxiosError(e)) {
     assertAxiosError(e);
-    
-return parseAxiosError(e);
+
+    return parseAxiosError(e);
   }
   assertError(e);
-  
-return { name: e.name, message: e.message, stack: e.stack };
+
+  return { name: e.name, message: e.message, stack: e.stack };
 };
