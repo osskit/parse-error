@@ -1,9 +1,9 @@
 import type { Response } from 'node-fetch';
 
-export const isError = (e: any) => e.text && typeof e.text === 'function';
+export const isError = (e: any) => e.text && typeof e.text === 'function' && !e.ok;
 
 export function assertError(e: any): asserts e is Response {
-  return e.text && typeof e.text === 'function';
+  return isError(e);
 }
 
 export const parseError = async (e: Response) => {
