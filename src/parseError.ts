@@ -1,42 +1,32 @@
+import type { Response } from 'node-fetch';
 import type { AxiosError } from 'axios';
-import type { ErrorResponse, Response } from './types';
+import {
+  isError as isFetchError,
+  assertError as assertFetchError,
+  parseError as parseFetchError,
+} from './errors/fetch';
+import {
+  isError as isAxiosError,
+  assertError as assertAxiosError,
+  parseError as parseAxiosError,
+} from './errors/axios';
 
-export const parseError = async (e: any): Promise<ErrorResponse> => {
-  try {
-    // e.text function should be fetch error
-    if (e.text && typeof e.text === 'function') {
-      try {
-        const text = (await e.clone().text()) as string;
+export function assertError(e: any): asserts e is Error {
+  return e.name && e.message;
+}
 
-        return JSON.parse(text);
-      } catch {
-        return { status: e.status, statusText: e.statusText, url: e.url } as Response;
-      }
-    }
+export const parseError = async (e: AxiosError | Error | Response) => {
+  if (isFetchError(e)) {
+    assertFetchError(e);
 
-    // Axios error has buffer properties, toJSON will create a nice object
-    if (e.isAxiosError) {
-      return e.toJSON() as AxiosError;
-    }
-
-    if (e.response) {
-      return {
-        status: e.response.status,
-        statusText: e.response.statusText,
-        data: e.response.data,
-      } as Response;
-    }
-
-    if (e.body) {
-      try {
-        return JSON.parse(e.body as string) as Response;
-      } catch {
-        return e.body as Response;
-      }
-    }
-
-    return e as Response;
-  } catch {
-    return e as Response;
+    return parseFetchError(e);
   }
+  if (isAxiosError(e)) {
+    assertAxiosError(e);
+
+    return parseAxiosError(e);
+  }
+  assertError(e);
+
+  return { name: e.name, message: e.message, stack: e.stack };
 };
