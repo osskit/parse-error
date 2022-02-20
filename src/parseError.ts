@@ -12,7 +12,7 @@ import {
 } from './errors/axios';
 
 export function assertError(e: any): asserts e is Error {
-  return e.message;
+  return e.message && e.name && e.stack;
 }
 
 export const parseError = async (e: AxiosError | Error | Response): Promise<any> => {
