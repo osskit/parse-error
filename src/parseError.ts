@@ -15,7 +15,7 @@ export function assertError(e: any): asserts e is Error {
   return e.name && e.message;
 }
 
-export const parseError = async (e: AxiosError | Error | Response): Promise<any> => {
+export const parseError = async (e: AxiosError | Error | Response) => {
   if (isFetchError(e)) {
     assertFetchError(e);
 
