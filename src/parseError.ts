@@ -4,12 +4,12 @@ import {
   isError as isFetchError,
   assertError as assertFetchError,
   parseError as parseFetchError,
-} from './errors/fetch';
+} from './errors/fetch.js';
 import {
   isError as isAxiosError,
   assertError as assertAxiosError,
   parseError as parseAxiosError,
-} from './errors/axios';
+} from './errors/axios.js';
 
 export function assertError(e: any): asserts e is Error {
   return e.name && e.message;
