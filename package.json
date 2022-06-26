@@ -1,6 +1,6 @@
 {
   "name": "@osskit/parse-error",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "repository": {
     "url": "https://github.com/osskit/parse-error"
   },
@@ -12,6 +12,9 @@
   },
   "types": "./dist/index.d.ts",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "lint": "yarn lint:base --fix",
